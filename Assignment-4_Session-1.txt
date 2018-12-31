@@ -1,0 +1,41 @@
+Assignment-4_Session-1
+
+Problem Statement
+
+1. Read multiple JSON files into a directory to convert into a dataset.
+I have files text1, text2, text3 in the directory JSON.
+Answer- 
+library(rjson)
+total_df <- data.frame()
+files<-list.files(pattern = “.json”)
+for(i in 1:length(files))
+{
+Filename<-files[1]
+Result<- fromJSON(file=files)
+json_data_frame <- as.data.frame(result)
+total_df<- rbind(total_df, json_data_frame)
+}
+
+2. Parse the following JSON into a data frame.
+js<-‘{
+“Name”: “null”, “release_date_local”: “null”, “title”: “3(2011)”, “opening_weekend_take”: “1234”, “year”: “2011”, 
+“release_date_wide”: “2011-09-16”, “gross”: “59954”
+}’
+Answer-
+##save the file with the name js.json and save the below data inside the file in your working directory.
+js<-“{“Name”: “null”, “release_date_local”: “null”, “title”: “3(2011)”, “opening_weekend_take”: “1234”, “year”: “2011”, 
+“release_date_wide”: “2011-09-16”, “gross”: “59954”}”
+library(rjson)
+file_json <- fromJSON(file = “js.json”)
+json_data_frame <- as.data.frame(file_json)
+print(json_data_frame)
+
+3. Write a script for variable binning using R.
+Answer-
+data <- read.csv("data/meaneducation.csv")
+x <- data[,1]
+summary(x)
+breaks <- c(0,2,5,8,10,13,15,19,21)
+labels <- c("<2", "2-5", "5-8", "8-10", "10-13", "13-15", "15-19", ">=19")
+bins <- cut(x, breaks, include.lowest = T, right=FALSE, labels=labels)
+summary(bins)
